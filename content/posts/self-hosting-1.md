@@ -1,6 +1,7 @@
 Title: How I used to self-host my services and plans for the future
 Date: 2023-02-05 10:20
 Category: Project
+Status: draft
 
 I became interested in self-hosting a while ago, when I was still a student. Let's be honest, my main motivation at first was to set-up a seedbox to download the last Game of Thrones episode released this week for me while I was attending my morning class at the university.
 
