@@ -4,6 +4,6 @@
 [submodule "themes/Papyrus"]
 	path = themes/Papyrus
 	url = https://github.com/aleylara/Papyrus
-[submodule "pelican-plugins/pelican-toc"]
-	path = pelican-plugins/pelican-toc
-	url = https://github.com/ingwinlu/pelican-toc
+[submodule "themes/Pneumatic"]
+	path = themes/Pneumatic
+	url = https://github.com/iKevinY/pneumatic

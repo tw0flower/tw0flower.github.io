@@ -1,0 +1,3 @@
+pelican-neighbors
+pelican-webassets
+cssmin

@@ -1,55 +1,47 @@
-AUTHOR = 'tw0flower'
-SITENAME = 'tw0flower'
-SITEURL = ''
-TIMEZONE = 'Australia/Sydney'
-DEFAULT_LANG = 'en'
+AUTHOR = "tw0flower"
+SITENAME = "tw0flower"
+SITEURL = ""
+TIMEZONE = "Asia/Tokyo"
+DEFAULT_LANG = "en"
+PATH = "content"
 
-SUBTITLE = 'Yet another tech blog'
+THEME_STATIC_PATHS = ["static"]
+PLUGINS = [
+    "pelican.plugins.neighbors",
+    "pelican.plugins.webassets",
+]
+MARKDOWN = {"extension_configs": {"markdown.extensions.codehilite": {"linenums": None}}}
 
-COPYRIGHT = '©2023'
-PATH = 'content'
-THEME = 'themes/Papyrus'
-THEME_STATIC_PATHS = ['static']
-PLUGIN_PATHS = ['pelican-plugins']
-PLUGINS = ['readtime', 'search', 'neighbors', 'pelican-toc']
+ARCHIVES_SAVE_AS = "archive/index.html"
+YEAR_ARCHIVE_SAVE_AS = "{date:%Y}/index.html"
+MONTH_ARCHIVE_SAVE_AS = "{date:%Y}/{date:%m}/index.html"
 
-DISPLAY_PAGES_ON_MENU = True
-DIRECT_TEMPLATES = (('index', 'search', 'tags', 'categories', 'archives',))
-PAGINATED_TEMPLATES = {'index':None,'tag':None,'category':None,'author':None,'archives':24,}
-
-# Site search plugin
-SEARCH_MODE = "output"
-SEARCH_HTML_SELECTOR = "main"
-# Table of Content Plugin
-TOC = {
-    'TOC_HEADERS'       : '^h[1-3]', # What headers should be included in
-                                     # the generated toc
-                                     # Expected format is a regular expression
-    'TOC_RUN'           : 'true',    # Default value for toc generation,
-                                     # if it does not evaluate
-                                     # to 'true' no toc will be generated
-    'TOC_INCLUDE_TITLE': 'false',    # If 'true' include title in toc
-}
+THEME = "themes/Pneumatic"
+ICONS_PATH = "images/icons"
 
 # Feed generation is usually not desired when developing
-FEED_ALL_ATOM = 'feeds/all.atom.xml'
+FEED_ALL_ATOM = "feeds/all.atom.xml"
 CATEGORY_FEED_ATOM = None
 TRANSLATION_FEED_ATOM = None
 AUTHOR_FEED_ATOM = None
 AUTHOR_FEED_RSS = None
 RSS_FEED_SUMMARY_ONLY = True
 
-# Social widgets
-SOCIAL = (
-    ('github', 'https://github.com/tw0flower'),
-    ('twitter', 'https://twitter.com/tw0flower_'),
-)
+BIO_TEXT = "Devops Engineer, Python developer and general computer handyman"
+FOOTER_TEXT = 'Built with <a href="https://github.com/getpelican/pelican">Pelican</a> using the <a href="https://github.com/iKevinY/pneumatic">Pneumatic</a> theme.'
 
+TWITTER_USERNAME = "tw0flower_"
+MASTODON_URL = "https://tech.lgbt/@tw0flower"
 
-DEFAULT_PAGINATION = 8
+SOCIAL_ICONS = [
+    ("https://github.com/tw0flower_", "GitHub", "fa-github"),
+    ("https://twitter.com/tw0flower_", "Twitter", "fa-twitter"),
+    ("https://tech.lgbt/@tw0flower", "Mastodon", "fa-comments-o"),
+    ("/atom.xml", "Atom Feed", "fa-solid fa-rss"),
+]
 
-# Uncomment following line if you want document-relative URLs when developing
-#RELATIVE_URLS = True
-
-# DISQUS_SITENAME = ''
-# GOOGLE_ANALYTICS = ''
+SIDEBAR_LINKS = [
+    '<a href="/pages/about/">About</a>',
+    '<a href="/pages/about/">Want</a>',
+    '<a href="/archive/">Archive</a>',
+]
