@@ -16,6 +16,9 @@ PLUGINS = [
 ]
 MARKDOWN = {"extension_configs": {"markdown.extensions.codehilite": {"linenums": None}}}
 
+PAGE_URL = "pages/{slug}/"
+PAGE_SAVE_AS = "pages/{slug}/index.html"
+
 ARCHIVES_SAVE_AS = "archive/index.html"
 YEAR_ARCHIVE_SAVE_AS = "{date:%Y}/index.html"
 MONTH_ARCHIVE_SAVE_AS = "{date:%Y}/{date:%m}/index.html"
@@ -46,6 +49,5 @@ SOCIAL_ICONS = [
 
 SIDEBAR_LINKS = [
     '<a href="/pages/about/">About</a>',
-    '<a href="/pages/about/">Want</a>',
     '<a href="/archive/">Archive</a>',
 ]
