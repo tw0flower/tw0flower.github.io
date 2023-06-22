@@ -1,9 +1,13 @@
 AUTHOR = "tw0flower"
 SITENAME = "tw0flower"
-SITEURL = ""
+SITEURL = "https://tw0flower.github.io"
 TIMEZONE = "Asia/Tokyo"
 DEFAULT_LANG = "en"
 PATH = "content"
+
+DEFAULT_METADATA = {
+    "status": "draft",
+}
 
 THEME_STATIC_PATHS = ["static"]
 PLUGINS = [
@@ -34,7 +38,7 @@ TWITTER_USERNAME = "tw0flower_"
 MASTODON_URL = "https://tech.lgbt/@tw0flower"
 
 SOCIAL_ICONS = [
-    ("https://github.com/tw0flower_", "GitHub", "fa-github"),
+    ("https://github.com/tw0flower", "GitHub", "fa-github"),
     ("https://twitter.com/tw0flower_", "Twitter", "fa-twitter"),
     ("https://tech.lgbt/@tw0flower", "Mastodon", "fa-comments-o"),
     ("/atom.xml", "Atom Feed", "fa-solid fa-rss"),

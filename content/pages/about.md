@@ -1,5 +1,6 @@
 Title: About
 Date: 2023-06-08
+Status: published
 
 I'm a computer handyman currently living in Kyoto, Japan. In the last few years I have worked in several Linux/UNIX system administration and automation roles.
 
