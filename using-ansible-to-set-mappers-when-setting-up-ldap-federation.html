@@ -1,0 +1,172 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<!-- Basic Metas -->
+	<meta charset="utf-8">
+	<title>Using Ansible to set mappers when setting up LDAP federation | tw0flower</title>
+	<meta name="description" content="TL;DR Look up the Keycloak's API JavaDoc, search for "MapperConfig" to find your mapper's config class, lowercase all fields and replace the underscores by commas (e.g. LDAP_FULL_NAME_ATTRIBUTE -> ldap.full.name.attribute). For the group mapper the two following classes are needed: GroupMapperConfig and LdapMapCommonGroupMapperConfig. This …">
+	<meta name="author" content="">
+	<link rel="author" href=""/>
+	<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+
+	<!-- Twitter Cards and Open Graph -->
+	<meta name="twitter:card" content="summary">
+	<meta name="twitter:creator" content="tw0flower_">
+	<meta name="twitter:domain" content="">
+	<meta name="twitter:site" content="tw0flower_">
+	<meta property="og:title" content="Using Ansible to set mappers when setting up LDAP federation">
+	<meta property="og:description" content="TL;DR Look up the Keycloak's API JavaDoc, search for "MapperConfig" to find your mapper's config class, lowercase all fields and replace the underscores by commas (e.g. LDAP_FULL_NAME_ATTRIBUTE -> ldap.full.name.attribute). For the group mapper the two following classes are needed: GroupMapperConfig and LdapMapCommonGroupMapperConfig. This …">
+	<meta property="og:image" content="https://tw0flower.github.io/images/icons/avatar.png">
+	<meta property="og:type" content="article">
+	<meta property="og:url" content="https://tw0flower.github.io/using-ansible-to-set-mappers-when-setting-up-ldap-federation.html">
+
+	<!-- Stylesheets and Web Fonts -->
+	<link href="/theme/style.min.css?e03582c2" rel="stylesheet">
+	<link href="https://maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css" rel="stylesheet">
+
+	<!-- Favicons -->
+	<link rel="apple-touch-icon" sizes="180x180" href="/images/icons/apple-touch-icon.png">
+	<link rel="icon" type="image/png" href="/images/icons/favicon-16x16.png" sizes="16x16">
+	<link rel="icon" type="image/png" href="/images/icons/favicon-32x32.png" sizes="32x32">
+	<meta name="theme-color" content="">
+
+	<meta name="msapplication-TileColor" content="">
+	<meta name="msapplication-TileImage" content="/images/icons/mstile-144x144.png">
+	<meta name="msapplication-square70x70logo" content="/images/icons/mstile-small.png">
+	<meta name="msapplication-square150x150logo" content="/images/icons/mstile-medium.png">
+	<meta name="msapplication-wide310x150logo" content="/images/icons/mstile-wide.png">
+	<meta name="msapplication-square310x310logo" content="/images/icons/mstile-large.png">
+
+	<!--[if lt IE 9]>
+	<script src="/theme/js/html5shiv.min.js"></script>
+	<script src="/theme/js/respond.min.js"></script>
+	<![endif]-->
+</head>
+
+<body>
+	<div class="container">
+		<aside>
+			<a href="/"><img id="avatar" alt="Site Avatar" src="/images/icons/avatar.png"></a>
+			<div id="name"><a href="/">tw0flower</a></div>
+			<div id="bio">Devops Engineer, Python developer and general computer handyman</div>
+
+			<div id="sidebar-links">
+				<a href="/pages/about/">About</a>&nbsp;|&nbsp;<a href="/archive/">Archive</a>
+			</div>
+
+			<div id="social">
+				<a href="https://github.com/tw0flower" title="GitHub" class="icon fa fa-github"></a>
+				<a href="https://twitter.com/tw0flower_" title="Twitter" class="icon fa fa-twitter"></a>
+				<a href="https://tech.lgbt/@tw0flower" title="Mastodon" class="icon fa fa-comments-o"></a>
+				<a href="/atom.xml" title="Atom Feed" class="icon fa fa-solid fa-rss"></a>
+			</div>
+
+			<hr id="sidebar-divider">
+		</aside>
+
+		<article>
+	<h1 class="title"><a href="/using-ansible-to-set-mappers-when-setting-up-ldap-federation.html" title="Permalink to Using Ansible to set mappers when setting up LDAP federation">Using Ansible to set mappers when setting up LDAP federation</a></h1>
+	<time class="date" datetime="2023-07-29 00:00:00+09:00">sam. 29 juillet 2023</time>
+	<div class="content">
+		<p><strong>TL;DR</strong></p>
+<p>Look up the <a href="https://www.keycloak.org/docs-api/22.0.1/javadocs/index.html">Keycloak's API JavaDoc</a>, search for "MapperConfig" to find your mapper's config class, lowercase all fields and replace the underscores by commas (e.g. LDAP_FULL_NAME_ATTRIBUTE -&gt; ldap.full.name.attribute). For the group mapper the two following classes are needed: <a href="https://www.keycloak.org/docs-api/22.0.1/javadocs/org/keycloak/storage/ldap/mappers/membership/group/GroupMapperConfig.html">GroupMapperConfig</a> and <a href="https://www.keycloak.org/docs-api/22.0.1/javadocs/org/keycloak/models/map/storage/ldap/config/LdapMapCommonGroupMapperConfig.html">LdapMapCommonGroupMapperConfig</a>. This is because GroupMapperConfig inherits from LdapMapCommonGroupMapperConfig.</p>
+<p>Here is a full working example:</p>
+<div class="codehilite"><pre><span></span><code><span class="nt">community.general.keycloak_user_federation</span><span class="p">:</span>
+<span class="w">    </span><span class="nt">auth_keycloak_url</span><span class="p">:</span><span class="w"> </span><span class="s">&quot;https://keycloak.example.com&quot;</span>
+<span class="w">    </span><span class="nt">auth_client_id</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">admin-cli</span>
+<span class="w">    </span><span class="nt">auth_realm</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">master</span>
+<span class="w">    </span><span class="nt">auth_username</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">admin</span>
+<span class="w">    </span><span class="nt">auth_password</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">not_a_great_password</span>
+<span class="w">    </span><span class="nt">realm</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">master</span>
+<span class="w">    </span><span class="nt">name</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">LDAPFederation</span>
+<span class="w">    </span><span class="nt">provider_id</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">ldap</span>
+<span class="w">    </span><span class="nt">config</span><span class="p">:</span>
+<span class="w">    </span><span class="nt">bindCredential</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">the_ldap_password</span>
+<span class="w">    </span><span class="nt">bindDn</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">uid=keycloak,cn=accounts, dc=ldap,dc=example,dc=com</span>
+<span class="w">    </span><span class="nt">connectionUrl</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">ldap://ldap.example.com</span>
+<span class="w">    </span><span class="nt">editMode</span><span class="p">:</span><span class="w"> </span><span class="s">&quot;READ_ONLY&quot;</span>
+<span class="w">    </span><span class="nt">usernameLDAPAttribute</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">uid</span>
+<span class="w">    </span><span class="nt">userObjectClasses</span><span class="p">:</span><span class="w"> </span><span class="s">&quot;inetuser&quot;</span>
+<span class="w">    </span><span class="nt">usersDn</span><span class="p">:</span><span class="w"> </span><span class="s">&quot;cn=users,cn=accounts,dc=ldap,dc=example,dc=com&quot;</span>
+<span class="w">    </span><span class="nt">vendor</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">other</span>
+<span class="w">    </span><span class="nt">mappers</span><span class="p">:</span>
+<span class="w">    </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="nt">name</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">group</span>
+<span class="w">        </span><span class="l l-Scalar l-Scalar-Plain">providerId</span><span class="p p-Indicator">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">group-ldap-mapper</span>
+<span class="w">        </span><span class="l l-Scalar l-Scalar-Plain">providerType</span><span class="p p-Indicator">:</span><span class="w"> </span><span class="s">&quot;org.keycloak.storage.ldap.mappers.LDAPStorageMapper&quot;</span>
+<span class="w">        </span><span class="nt">config</span><span class="p">:</span>
+<span class="w">        </span><span class="nt">memberof.ldap.attribute</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">memberOf</span>
+<span class="w">        </span><span class="nt">membership.attribute.type</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">DN</span>
+<span class="w">        </span><span class="nt">membership.ldap.attribute</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">member</span>
+<span class="w">        </span><span class="nt">membership.user.ldap.attribute</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">uid</span>
+<span class="w">        </span><span class="nt">mode</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">READ_ONLY</span>
+<span class="w">        </span><span class="nt">user.roles.retrieve.strategy</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">GET_GROUPS_BY_MEMBEROF_ATTRIBUTE</span>
+<span class="w">        </span><span class="nt">default.ldap.groups.path</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">/</span>
+<span class="w">        </span><span class="nt">groups.dn</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">cn=groups,cn=accounts,dc=ldap,dc=example,dc=com</span>
+</code></pre></div>
+
+<hr />
+<p>As of today, if you take a look at the Ansible documentation for the community.general.keycloak_user_federation module, you will find a rather elusive description of how mappers should be defined. In particular, the <code>config</code> field's description says this:</p>
+<blockquote>
+<p>A list of dicts defining mappers associated with this Identity Provider.</p>
+</blockquote>
+<p>Not a great start. The documentation does not tell you how to find how to set fields. In search for answers, I looked at the examples and found this:</p>
+<div class="codehilite"><pre><span></span><code><span class="p p-Indicator">-</span><span class="w"> </span><span class="nt">name</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">Create LDAP user federation</span>
+<span class="w">  </span><span class="nt">community.general.keycloak_user_federation</span><span class="p">:</span>
+<span class="w">    </span><span class="nt">auth_keycloak_url</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">https://keycloak.example.com/auth</span>
+<span class="w">    </span><span class="nt">auth_realm</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">master</span>
+<span class="w">    </span><span class="nt">auth_username</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">admin</span>
+<span class="w">    </span><span class="nt">auth_password</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">password</span>
+<span class="w">    </span><span class="nt">realm</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">my-realm</span>
+<span class="w">    </span><span class="nt">name</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">my-ldap</span>
+<span class="w">    </span><span class="l l-Scalar l-Scalar-Plain">...</span>
+<span class="w">    </span><span class="nt">mappers</span><span class="p">:</span>
+<span class="w">    </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="nt">name</span><span class="p">:</span><span class="w"> </span><span class="s">&quot;full</span><span class="nv"> </span><span class="s">name&quot;</span>
+<span class="w">        </span><span class="nt">providerId</span><span class="p">:</span><span class="w"> </span><span class="s">&quot;full-name-ldap-mapper&quot;</span>
+<span class="w">        </span><span class="nt">providerType</span><span class="p">:</span><span class="w"> </span><span class="s">&quot;org.keycloak.storage.ldap.mappers.LDAPStorageMapper&quot;</span>
+<span class="w">        </span><span class="nt">config</span><span class="p">:</span>
+<span class="w">            </span><span class="nt">ldap.full.name.attribute</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">cn</span>
+<span class="w">            </span><span class="nt">read.only</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">true</span>
+<span class="w">            </span><span class="nt">write.only</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">false</span>
+</code></pre></div>
+
+<p>This describes how to configure a full name mapper, one of the mappers that Keycloak supports and probably one of the most straightforward. The example works, but it does not really explain where the config fields come from. The documentation does say this though:</p>
+<blockquote>
+<p>The names of module options are snake_cased versions of the camelCase ones found in the Keycloak API and its documentation at https://www.keycloak.org/docs-api/8.0/rest-api/index.html</p>
+</blockquote>
+<p>So I went to check the <a href="https://www.keycloak.org/docs-api/22.0.1/javadocs/index.html">Keycloak's API JavaDoc</a> and found the specific <a href="https://www.keycloak.org/docs-api/22.0.1/javadocs/org/keycloak/storage/ldap/mappers/membership/group/GroupLDAPStorageMapper.html">page</a> that pertains to the LDAP group mapper.</p>
+<p>The <code>getConfig</code> method tells us that the config type is <a href="https://www.keycloak.org/docs-api/22.0.1/javadocs/org/keycloak/storage/ldap/mappers/membership/CommonLDAPGroupMapperConfig.html">CommonLDAPGroupMapperConfig</a>, and there bingo! The fields match some of the ones we have in the UI. But not all. Fortunately, a quick look at the direct known subclasses tells us that the <a href="https://www.keycloak.org/docs-api/22.0.1/javadocs/org/keycloak/storage/ldap/mappers/membership/group/GroupMapperConfig.html">GroupMapperConfig</a> inherits from the GroupMapperClass. With the fields from this new class in addition, we have everything we need.</p>
+<p>A look at the <a href="https://www.keycloak.org/docs-api/22.0.1/javadocs/org/keycloak/storage/ldap/mappers/FullNameLDAPStorageMapper.html">FullNameLDAPStorageMapper</a> class tells us how to convert the attributes from the JavaDoc to something that the Ansible module will process. <strong>LDAP_FULL_NAME_ATTRIBUTE</strong> becomes <strong>ldap.full.name.attribute</strong>, <strong>READ_ONLY</strong> becomes <strong>read.only</strong>, etc.</p>
+<p>This is not camelCase, so the above quotation does not apply and I don't think this is actually explained anywhere in the documentation. </p>
+<p>The process I described can be applied for any group mapper, but here is a working example for the group mapper.</p>
+<div class="codehilite"><pre><span></span><code><span class="p p-Indicator">-</span><span class="w"> </span><span class="nt">name</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">Create LDAP user federation</span>
+<span class="w">  </span><span class="nt">community.general.keycloak_user_federation</span><span class="p">:</span>
+<span class="w">    </span><span class="nt">auth_keycloak_url</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">https://keycloak.example.com/auth</span>
+<span class="w">    </span><span class="nt">auth_realm</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">master</span>
+<span class="w">    </span><span class="nt">auth_username</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">admin</span>
+<span class="w">    </span><span class="nt">auth_password</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">password</span>
+<span class="w">    </span><span class="nt">realm</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">my-realm</span>
+<span class="w">    </span><span class="nt">name</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">my-ldap</span>
+<span class="w">    </span><span class="l l-Scalar l-Scalar-Plain">...</span>
+<span class="w">    </span><span class="nt">mappers</span><span class="p">:</span>
+<span class="w">    </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="nt">name</span><span class="p">:</span><span class="w"> </span><span class="s">&quot;full</span><span class="nv"> </span><span class="s">name&quot;</span>
+<span class="w">        </span><span class="nt">providerId</span><span class="p">:</span><span class="w"> </span><span class="s">&quot;full-name-ldap-mapper&quot;</span>
+<span class="w">        </span><span class="nt">providerType</span><span class="p">:</span><span class="w"> </span><span class="s">&quot;org.keycloak.storage.ldap.mappers.LDAPStorageMapper&quot;</span>
+<span class="w">        </span><span class="nt">config</span><span class="p">:</span>
+<span class="w">            </span><span class="nt">ldap.full.name.attribute</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">cn</span>
+<span class="w">            </span><span class="nt">read.only</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">true</span>
+<span class="w">            </span><span class="nt">write.only</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">false</span>
+</code></pre></div>
+	</div>
+
+
+			<hr>
+		</article>
+
+		<footer>
+			<p>Built with <a href="https://github.com/getpelican/pelican">Pelican</a> using the <a href="https://github.com/iKevinY/pneumatic">Pneumatic</a> theme.</p>
+		</footer>
+	</div>
+
+
+</body>
+</html>

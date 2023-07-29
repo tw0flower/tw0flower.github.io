@@ -1,0 +1,92 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<!-- Basic Metas -->
+	<meta charset="utf-8">
+	<title>How I used to self-host my services and plans for the future | tw0flower</title>
+	<meta name="description" content="I became interested in self-hosting a while ago, when I was still a student. Let's be honest, my main motivation at first was to set-up a seedbox to download the last Game of Thrones episode released this week for me while I was attending my morning class at the university …">
+	<meta name="author" content="">
+	<link rel="author" href=""/>
+	<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+
+	<!-- Twitter Cards and Open Graph -->
+	<meta name="twitter:card" content="summary">
+	<meta name="twitter:creator" content="tw0flower_">
+	<meta name="twitter:domain" content="">
+	<meta name="twitter:site" content="tw0flower_">
+	<meta property="og:title" content="How I used to self-host my services and plans for the future">
+	<meta property="og:description" content="I became interested in self-hosting a while ago, when I was still a student. Let's be honest, my main motivation at first was to set-up a seedbox to download the last Game of Thrones episode released this week for me while I was attending my morning class at the university …">
+	<meta property="og:image" content="https://tw0flower.github.io/images/icons/avatar.png">
+	<meta property="og:type" content="article">
+	<meta property="og:url" content="https://tw0flower.github.io/drafts/how-i-used-to-self-host-my-services-and-plans-for-the-future.html">
+
+	<!-- Stylesheets and Web Fonts -->
+	<link href="/theme/style.min.css?e03582c2" rel="stylesheet">
+	<link href="https://maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css" rel="stylesheet">
+
+	<!-- Favicons -->
+	<link rel="apple-touch-icon" sizes="180x180" href="/images/icons/apple-touch-icon.png">
+	<link rel="icon" type="image/png" href="/images/icons/favicon-16x16.png" sizes="16x16">
+	<link rel="icon" type="image/png" href="/images/icons/favicon-32x32.png" sizes="32x32">
+	<meta name="theme-color" content="">
+
+	<meta name="msapplication-TileColor" content="">
+	<meta name="msapplication-TileImage" content="/images/icons/mstile-144x144.png">
+	<meta name="msapplication-square70x70logo" content="/images/icons/mstile-small.png">
+	<meta name="msapplication-square150x150logo" content="/images/icons/mstile-medium.png">
+	<meta name="msapplication-wide310x150logo" content="/images/icons/mstile-wide.png">
+	<meta name="msapplication-square310x310logo" content="/images/icons/mstile-large.png">
+
+	<!--[if lt IE 9]>
+	<script src="/theme/js/html5shiv.min.js"></script>
+	<script src="/theme/js/respond.min.js"></script>
+	<![endif]-->
+</head>
+
+<body>
+	<div class="container">
+		<aside>
+			<a href="/"><img id="avatar" alt="Site Avatar" src="/images/icons/avatar.png"></a>
+			<div id="name"><a href="/">tw0flower</a></div>
+			<div id="bio">Devops Engineer, Python developer and general computer handyman</div>
+
+			<div id="sidebar-links">
+				<a href="/pages/about/">About</a>&nbsp;|&nbsp;<a href="/archive/">Archive</a>
+			</div>
+
+			<div id="social">
+				<a href="https://github.com/tw0flower" title="GitHub" class="icon fa fa-github"></a>
+				<a href="https://twitter.com/tw0flower_" title="Twitter" class="icon fa fa-twitter"></a>
+				<a href="https://tech.lgbt/@tw0flower" title="Mastodon" class="icon fa fa-comments-o"></a>
+				<a href="/atom.xml" title="Atom Feed" class="icon fa fa-solid fa-rss"></a>
+			</div>
+
+			<hr id="sidebar-divider">
+		</aside>
+
+		<article>
+	<h1 class="title"><a href="/drafts/how-i-used-to-self-host-my-services-and-plans-for-the-future.html" title="Permalink to How I used to self-host my services and plans for the future">How I used to self-host my services and plans for the future</a></h1>
+	<time class="date" datetime="2023-02-05 10:20:00+09:00">dim. 05 février 2023</time>
+	<div class="content">
+		<p>I became interested in self-hosting a while ago, when I was still a student. Let's be honest, my main motivation at first was to set-up a seedbox to download the last Game of Thrones episode released this week for me while I was attending my morning class at the university.</p>
+<p>History will not say if I succeeded in this endeavour or not. However, what history will tell is that I soon began hosting much more than just smallish projects. Before I knew it I was administering a cloud storage solution, then an e-mail server, then again my own git server, because why not?</p>
+<h1>The FreeBSD era</h1>
+<p>The Raspberry Pi that I was using in the first place soon became very limited in its abilities to hold the load - it was one of the first versions and even running Nextcloud was a stretch. So I migrated everything to a dedicated server in a datacenter. And I moved from Debian to FreeBSD in the process, because that's the operating system I was using at my internship at the time. I did things the right way and administered everything with FreeBSD's containerization system: the <a href="https://docs.freebsd.org/en/books/handbook/jails/">jails</a>.</p>
+<p>Due to FreeBSD's nature I had to do everything myself. If a package was not available in binary format, I built it using my own <a href="https://github.com/freebsd/poudriere">poudriere</a>. If a web service was not available in the repositories, I set up the jail with the necessary packages myself. It was extremely difficulty with my lack of experience at the time, but so rewarding. Most common Linux programs do not offer any FreeBSD support. And sometimes they didn't even built in a FreeBSD environment. So I had to find workarounds all the time.</p>
+<p>Even though my system was perfectly functional, containerized, and manageable with the scripts I had written, I wanted to experiment with Docker. Which was not officially available on the BSD systems. And so I migrated again.</p>
+<h1>Debian and Docker</h1>
+<p>So</p>
+	</div>
+
+
+			<hr>
+		</article>
+
+		<footer>
+			<p>Built with <a href="https://github.com/getpelican/pelican">Pelican</a> using the <a href="https://github.com/iKevinY/pneumatic">Pneumatic</a> theme.</p>
+		</footer>
+	</div>
+
+
+</body>
+</html>
