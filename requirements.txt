@@ -1,3 +1,4 @@
 pelican-neighbors
 pelican-webassets
 cssmin
+sass
