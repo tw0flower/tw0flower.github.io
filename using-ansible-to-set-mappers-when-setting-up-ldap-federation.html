@@ -66,7 +66,7 @@
 
 		<article>
 	<h1 class="title"><a href="/using-ansible-to-set-mappers-when-setting-up-ldap-federation.html" title="Permalink to Using Ansible to set mappers when setting up LDAP federation">Using Ansible to set mappers when setting up LDAP federation</a></h1>
-	<time class="date" datetime="2023-07-29 00:00:00+09:00">sam. 29 juillet 2023</time>
+	<time class="date" datetime="2023-07-29 18:00:00+09:00">sam. 29 juillet 2023</time>
 	<div class="content">
 		<p><strong>TL;DR</strong></p>
 <p>Look up the <a href="https://www.keycloak.org/docs-api/22.0.1/javadocs/index.html">Keycloak's API JavaDoc</a>, search for "MapperConfig" to find your mapper's config class, lowercase all fields and replace the underscores by commas (e.g. LDAP_FULL_NAME_ATTRIBUTE becomes ldap.full.name.attribute). For the group mapper the two following classes are needed: <a href="https://www.keycloak.org/docs-api/22.0.1/javadocs/org/keycloak/storage/ldap/mappers/membership/group/GroupMapperConfig.html">GroupMapperConfig</a> and <a href="https://www.keycloak.org/docs-api/22.0.1/javadocs/org/keycloak/models/map/storage/ldap/config/LdapMapCommonGroupMapperConfig.html">LdapMapCommonGroupMapperConfig</a>. This is because GroupMapperConfig inherits from LdapMapCommonGroupMapperConfig.</p>
