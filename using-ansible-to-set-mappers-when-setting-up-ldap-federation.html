@@ -4,7 +4,7 @@
 	<!-- Basic Metas -->
 	<meta charset="utf-8">
 	<title>Using Ansible to set mappers when setting up LDAP federation | tw0flower</title>
-	<meta name="description" content="TL;DR Look up the Keycloak's API JavaDoc, search for "MapperConfig" to find your mapper's config class, lowercase all fields and replace the underscores by commas (e.g. LDAP_FULL_NAME_ATTRIBUTE -> ldap.full.name.attribute). For the group mapper the two following classes are needed: GroupMapperConfig and LdapMapCommonGroupMapperConfig. This …">
+	<meta name="description" content="TL;DR Look up the Keycloak's API JavaDoc, search for "MapperConfig" to find your mapper's config class, lowercase all fields and replace the underscores by commas (e.g. LDAP_FULL_NAME_ATTRIBUTE becomes ldap.full.name.attribute). For the group mapper the two following classes are needed: GroupMapperConfig and LdapMapCommonGroupMapperConfig …">
 	<meta name="author" content="">
 	<link rel="author" href=""/>
 	<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
@@ -15,10 +15,10 @@
 	<meta name="twitter:domain" content="">
 	<meta name="twitter:site" content="tw0flower_">
 	<meta property="og:title" content="Using Ansible to set mappers when setting up LDAP federation">
-	<meta property="og:description" content="TL;DR Look up the Keycloak's API JavaDoc, search for "MapperConfig" to find your mapper's config class, lowercase all fields and replace the underscores by commas (e.g. LDAP_FULL_NAME_ATTRIBUTE -> ldap.full.name.attribute). For the group mapper the two following classes are needed: GroupMapperConfig and LdapMapCommonGroupMapperConfig. This …">
-	<meta property="og:image" content="https://tw0flower.github.io/images/icons/avatar.png">
+	<meta property="og:description" content="TL;DR Look up the Keycloak's API JavaDoc, search for "MapperConfig" to find your mapper's config class, lowercase all fields and replace the underscores by commas (e.g. LDAP_FULL_NAME_ATTRIBUTE becomes ldap.full.name.attribute). For the group mapper the two following classes are needed: GroupMapperConfig and LdapMapCommonGroupMapperConfig …">
+	<meta property="og:image" content="./images/icons/avatar.png">
 	<meta property="og:type" content="article">
-	<meta property="og:url" content="https://tw0flower.github.io/using-ansible-to-set-mappers-when-setting-up-ldap-federation.html">
+	<meta property="og:url" content="./using-ansible-to-set-mappers-when-setting-up-ldap-federation.html">
 
 	<!-- Stylesheets and Web Fonts -->
 	<link href="/theme/style.min.css?e03582c2" rel="stylesheet">
@@ -69,7 +69,7 @@
 	<time class="date" datetime="2023-07-29 00:00:00+09:00">sam. 29 juillet 2023</time>
 	<div class="content">
 		<p><strong>TL;DR</strong></p>
-<p>Look up the <a href="https://www.keycloak.org/docs-api/22.0.1/javadocs/index.html">Keycloak's API JavaDoc</a>, search for "MapperConfig" to find your mapper's config class, lowercase all fields and replace the underscores by commas (e.g. LDAP_FULL_NAME_ATTRIBUTE -&gt; ldap.full.name.attribute). For the group mapper the two following classes are needed: <a href="https://www.keycloak.org/docs-api/22.0.1/javadocs/org/keycloak/storage/ldap/mappers/membership/group/GroupMapperConfig.html">GroupMapperConfig</a> and <a href="https://www.keycloak.org/docs-api/22.0.1/javadocs/org/keycloak/models/map/storage/ldap/config/LdapMapCommonGroupMapperConfig.html">LdapMapCommonGroupMapperConfig</a>. This is because GroupMapperConfig inherits from LdapMapCommonGroupMapperConfig.</p>
+<p>Look up the <a href="https://www.keycloak.org/docs-api/22.0.1/javadocs/index.html">Keycloak's API JavaDoc</a>, search for "MapperConfig" to find your mapper's config class, lowercase all fields and replace the underscores by commas (e.g. LDAP_FULL_NAME_ATTRIBUTE becomes ldap.full.name.attribute). For the group mapper the two following classes are needed: <a href="https://www.keycloak.org/docs-api/22.0.1/javadocs/org/keycloak/storage/ldap/mappers/membership/group/GroupMapperConfig.html">GroupMapperConfig</a> and <a href="https://www.keycloak.org/docs-api/22.0.1/javadocs/org/keycloak/models/map/storage/ldap/config/LdapMapCommonGroupMapperConfig.html">LdapMapCommonGroupMapperConfig</a>. This is because GroupMapperConfig inherits from LdapMapCommonGroupMapperConfig.</p>
 <p>Here is a full working example:</p>
 <div class="codehilite"><pre><span></span><code><span class="nt">community.general.keycloak_user_federation</span><span class="p">:</span>
 <span class="w">    </span><span class="nt">auth_keycloak_url</span><span class="p">:</span><span class="w"> </span><span class="s">&quot;https://keycloak.example.com&quot;</span>
