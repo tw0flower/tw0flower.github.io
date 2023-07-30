@@ -4,7 +4,7 @@ Status: published
 
 **TL;DR**
 
-Look up the [Keycloak's API JavaDoc](https://www.keycloak.org/docs-api/22.0.1/javadocs/index.html), search for "MapperConfig" to find your mapper's config class, lowercase all fields and replace the underscores by commas (e.g. LDAP_FULL_NAME_ATTRIBUTE -> ldap.full.name.attribute). For the group mapper the two following classes are needed: [GroupMapperConfig](https://www.keycloak.org/docs-api/22.0.1/javadocs/org/keycloak/storage/ldap/mappers/membership/group/GroupMapperConfig.html) and [LdapMapCommonGroupMapperConfig](https://www.keycloak.org/docs-api/22.0.1/javadocs/org/keycloak/models/map/storage/ldap/config/LdapMapCommonGroupMapperConfig.html). This is because GroupMapperConfig inherits from LdapMapCommonGroupMapperConfig.
+Look up the [Keycloak's API JavaDoc](https://www.keycloak.org/docs-api/22.0.1/javadocs/index.html), search for "MapperConfig" to find your mapper's config class, lowercase all fields and replace the underscores by commas (e.g. LDAP_FULL_NAME_ATTRIBUTE becomes ldap.full.name.attribute). For the group mapper the two following classes are needed: [GroupMapperConfig](https://www.keycloak.org/docs-api/22.0.1/javadocs/org/keycloak/storage/ldap/mappers/membership/group/GroupMapperConfig.html) and [LdapMapCommonGroupMapperConfig](https://www.keycloak.org/docs-api/22.0.1/javadocs/org/keycloak/models/map/storage/ldap/config/LdapMapCommonGroupMapperConfig.html). This is because GroupMapperConfig inherits from LdapMapCommonGroupMapperConfig.
 
 Here is a full working example:
 
