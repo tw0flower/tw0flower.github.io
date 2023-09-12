@@ -45,7 +45,6 @@ TWITTER_USERNAME = "tw0flower_"
 SOCIAL_ICONS = [
     ("https://github.com/tw0flower", "GitHub", "fa-github"),
     ("https://twitter.com/tw0flower_", "Twitter", "fa-twitter"),
-    ("https://tech.lgbt/@tw0flower", "Mastodon", "fa-comments-o"),
     ("/atom.xml", "Atom Feed", "fa-solid fa-rss"),
 ]
 
