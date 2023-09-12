@@ -34,11 +34,13 @@ AUTHOR_FEED_ATOM = None
 AUTHOR_FEED_RSS = None
 RSS_FEED_SUMMARY_ONLY = True
 
+LOCALE = ('en_US', 'fr_FR')
+
 BIO_TEXT = "Devops Engineer, Python developer and general computer handyman"
 FOOTER_TEXT = 'Built with <a href="https://github.com/getpelican/pelican">Pelican</a> using the <a href="https://github.com/iKevinY/pneumatic">Pneumatic</a> theme.'
 
 TWITTER_USERNAME = "tw0flower_"
-MASTODON_URL = "https://tech.lgbt/@tw0flower"
+# MASTODON_URL = "https://tech.lgbt/@tw0flower"
 
 SOCIAL_ICONS = [
     ("https://github.com/tw0flower", "GitHub", "fa-github"),
