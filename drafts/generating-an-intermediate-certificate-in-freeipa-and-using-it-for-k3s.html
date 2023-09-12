@@ -66,7 +66,7 @@
 
 		<article>
 	<h1 class="title"><a href="/drafts/generating-an-intermediate-certificate-in-freeipa-and-using-it-for-k3s.html" title="Permalink to Generating an intermediate certificate in FreeIPA and using it for k3s">Generating an intermediate certificate in FreeIPA and using it for k3s</a></h1>
-	<time class="date" datetime="2023-06-24 15:58:00+09:00">sam. 24 juin 2023</time>
+	<time class="date" datetime="2023-06-24 15:58:00+09:00">Sat 24 June 2023</time>
 	<div class="content">
 		<p>It is no secret that self-signed certificates should be avoided as they do not allow properly authenticating systems. k3s makes it very easy to just fire up with self-signed certificates, and it's really easy to just leave it as-is.</p>
 <p>However, if your host is already registered to a FreeIPA server (this is the case if you have run <code>ipa-client-install</code>), the process of getting an intermediate certificate for your host that can be used by k3s is very easy. Better even, this intermediate CA will now be automatically renewed before it expires.</p>
